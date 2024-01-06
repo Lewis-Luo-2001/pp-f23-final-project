@@ -19,7 +19,9 @@ void randomize_matrix(int row_num, int col_num, Mat* mat_ptr) {
 }
 
 
-void concat_images(Mat &mat, int step) {
+void concat_images(Mat &mat) {
+    int step = WIDTH / BAR_IN_A_FRAME;
+
     VideoWriter video_writer(OUTPUT_FILENAME, EX, FPS, FRAME_SIZE, false);
 
     if(!video_writer.isOpened()) {
