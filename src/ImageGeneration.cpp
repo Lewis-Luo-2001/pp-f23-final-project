@@ -1,6 +1,6 @@
 #include "ImageGeneration.h" 
 
-Mat ImageGeneration(vector<AudioType> samples, int begin, int end){
+cv::Mat image_generation(vector<AudioType> samples, int begin, int end){
     int bar_width = (WIDTH) / BAR_IN_A_FRAME;
     Mat res = new Mat((bar_width) * (end-begin), HEIGHT, CV_8UC1, Scalar(255));
 
