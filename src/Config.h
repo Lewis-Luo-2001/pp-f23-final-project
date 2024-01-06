@@ -11,7 +11,7 @@ extern std::string OUTPUT_FILENAME;
 extern AudioType SAMPLE_MIN;
 extern AudioType SAMPLE_MAX;
 
-const int FPS = 30;
+const int FPS = 60;
 
 const int EX = cv::VideoWriter::fourcc('m', 'p', '4', 'v');
 
@@ -21,4 +21,6 @@ const int HEIGHT = 1080;
 
 const cv::Size FRAME_SIZE = cv::Size(WIDTH, HEIGHT);
 
-const int BAR_IN_A_FRAME = 50;
+const int BAR_IN_A_FRAME = 75;
+
+const int STANDARD_HEIGHT = 5;

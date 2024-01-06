@@ -6,26 +6,31 @@
 #include "ImageConcat.h"
 #include <iostream>
 
-void usage(){
+void usage() {
     std::cerr << "Usage: ./Imagetrans <inputfile> [outputfile]\n";
 }
 
 std::string OUTPUT_FILENAME = "output.mp4";
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
-    if(argc < 2){
+    if(HEIGHT < STANDARD_HEIGHT) {
+        std::cerr << "Height cannot less than standard height\n";
+        return 1;
+    }
+
+    if(argc < 2) {
         usage();
         return 1;
     }
 
-    if(argc == 3){
+    if(argc == 3) {
         OUTPUT_FILENAME = argv[2];
     }
 
     AudioFile<AudioType> audio_file;
     bool load_success = audio_file.load(argv[1]);
-    if(!load_success){
+    if(!load_success) {
         std::cerr << "Audiofile load error\n";
         return 1;
     }

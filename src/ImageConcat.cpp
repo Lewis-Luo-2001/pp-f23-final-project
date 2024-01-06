@@ -20,6 +20,7 @@ void randomize_matrix(int row_num, int col_num, cv::Mat* mat_ptr) {
 
 void concat_images(cv::Mat &mat) {
     int step = WIDTH / BAR_IN_A_FRAME;
+    int progress = 0;
 
     cv::VideoWriter video_writer(OUTPUT_FILENAME, EX, FPS, FRAME_SIZE, false);
 
@@ -31,7 +32,16 @@ void concat_images(cv::Mat &mat) {
     for(int col = 0; col <= mat.cols - WIDTH; col += step) {
         cv::Mat frame = mat(cv::Rect(col, 0, WIDTH, HEIGHT));
         video_writer.write(frame);
+
+        if(col * 100 / (mat.cols - WIDTH) > progress) {
+            progress = col * 100 / (mat.cols - WIDTH);
+            if(progress % 5 == 0) {
+                std::cout << "Processing: " << progress << "%\n";
+            }
+        }
     }
+
+    std::cout << "Processing: 100%\n";
 
     video_writer.release();
 
