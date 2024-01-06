@@ -1,8 +1,8 @@
 #include "ImageGeneration.h" 
 
-cv::Mat image_generation(vector<AudioType> samples, int begin, int end){
+cv::Mat image_generation(std::vector<AudioType> samples, int begin, int end){
     int bar_width = (WIDTH) / BAR_IN_A_FRAME;
-    Mat res = new Mat((bar_width) * (end-begin), HEIGHT, CV_8UC1, Scalar(255));
+    cv::Mat res = cv::Mat((bar_width) * (end-begin), HEIGHT, CV_8UC1, cv::Scalar(255));
 
     for(int i = begin; i < end; i++) {
         int high = round(samples[i]);

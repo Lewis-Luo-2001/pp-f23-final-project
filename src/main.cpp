@@ -1,8 +1,16 @@
 #include "AudioFile.h"
+#include "opencv2/core.hpp"
+#include "Config.h"
+#include "SampleConversion.h"
+#include "ImageGeneration.h"
+#include "ImageConcat.h"
+#include <iostream>
 
 void usage(){
-    cerr << "Usage: ./imagetrans <inputfile> [outputfile]\n";
+    std::cerr << "Usage: ./Imagetrans <inputfile> [outputfile]\n";
 }
+
+std::string OUTPUT_FILENAME = "output.mp4";
 
 int main(int argc, char *argv[]){
 
@@ -18,7 +26,7 @@ int main(int argc, char *argv[]){
     AudioFile<AudioType> audio_file;
     bool load_success = audio_file.load(argv[1]);
     if(!load_success){
-        cerr << "Audiofile load error\n";
+        std::cerr << "Audiofile load error\n";
         return 1;
     }
 
@@ -26,12 +34,12 @@ int main(int argc, char *argv[]){
     int num_samples = audio_file.getNumSamplesPerChannel();
     double length_in_seconds = audio_file.getLengthInSeconds();
 
-    vector<AudioType> samples = sample_conversion(audio_file.samples, num_channels, num_samples, length_in_seconds);
+    std::vector<AudioType> samples = sample_conversion(audio_file.samples, num_channels, num_samples, length_in_seconds);
 
-    cv::Mat images = image_generation(samplesi, 0, samples.size());
+    cv::Mat images = image_generation(samples, 0, samples.size());
 
     concat_images(images);  // Output included
 
-    cout << "Done\n";
+    std::cout << "Done\n";
 
 }

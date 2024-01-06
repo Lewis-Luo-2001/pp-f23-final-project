@@ -1,5 +1,8 @@
 #pragma once
 
+#include "AudioFile.h"
+#include "Config.h"
+
 /**
  * Compress samples and convert to suitable data structure
  *
