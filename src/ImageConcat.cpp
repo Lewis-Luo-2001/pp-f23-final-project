@@ -22,7 +22,7 @@ void concat_images(int row_num, int col_num, Mat* mat_ptr, int frame_width, int 
     VideoWriter video_writer(video_path, VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, Size(frame_width, frame_height), false);
 
     if(!video_writer.isOpened()) {
-        cerr << "Error: Could not open the video file for writing."<<endl;
+        cerr<<"Error: Could not open the video file for writing."<<endl;
         return;
     }
 
