@@ -7,3 +7,8 @@ Team members:
 - [leo900807](https://github.com/leo900807)
 
 An C++ application to convert an audio file to a wave video.
+
+Supported Formats:
+
+- WAV
+- AIFF
