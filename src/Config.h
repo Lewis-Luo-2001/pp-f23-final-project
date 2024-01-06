@@ -16,3 +16,5 @@ int WIDTH = 1920;
 int HEIGHT = 1080;
 
 cv::Size FRAME_SIZE = Size(WIDTH, HEIGHT);
+
+int BAR_IN_A_FRAME = 50;
