@@ -1,4 +1,5 @@
 #include "ImageConcat.h"
+#include "Config.h"
 
 Mat *generate_matrix(int row_num, int col_num) {
     Mat *mat = new Mat(row_num, col_num, CV_8UC1, Scalar(255));
@@ -18,20 +19,20 @@ void randomize_matrix(int row_num, int col_num, Mat* mat_ptr) {
 }
 
 
-void concat_images(int row_num, int col_num, Mat* mat_ptr, int frame_width, int frame_height, int fps, string video_path, int step) {
-    VideoWriter video_writer(video_path, VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, Size(frame_width, frame_height), false);
+void concat_images(Mat &mat, int step) {
+    VideoWriter video_writer(OUTPUT_FILENAME, EX, FPS, FRAME_SIZE, false);
 
     if(!video_writer.isOpened()) {
         cerr<<"Error: Could not open the video file for writing."<<endl;
         return;
     }
 
-    for(int col = 0; col <= image.cols - frame_width; col += step) {
-        Mat frame = image(Rect(col, 0, frame_width, frame_height));
+    for(int col = 0; col <= mat.cols - WIDTH; col += step) {
+        Mat frame = mat(Rect(col, 0, WIDTH, HEIGHT));
         video_writer.write(frame);
     }
 
     video_writer.release();
 
-    cout<<"Video created successfully: "<<video_path<<endl;
+    cout<<"Video created successfully: "<<OUTPUT_FILENAME<<endl;
 }
