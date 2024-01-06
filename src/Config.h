@@ -3,10 +3,13 @@
 #include <opencv2/videoio.hpp>
 #include <string>
 
-using AudioType = double;
+using AudioType = int;
 using AudioBuffer = std::vector<std::vector<AudioType>>;
 
 extern std::string OUTPUT_FILENAME;
+
+extern AudioType SAMPLE_MIN;
+extern AudioType SAMPLE_MAX;
 
 const int FPS = 30;
 
