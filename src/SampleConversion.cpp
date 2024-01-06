@@ -26,10 +26,11 @@ std::vector<AudioType> sample_conversion(const AudioBuffer &samples, int num_cha
             }
         }
 
+        avg /= ((end - i) * num_channels);
+
         SAMPLE_MIN = std::min(SAMPLE_MIN, avg);
         SAMPLE_MAX = std::max(SAMPLE_MAX, avg);
 
-        avg /= ((end - i) * num_channels);
         result.push_back(avg);
 
     }
