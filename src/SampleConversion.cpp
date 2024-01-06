@@ -6,7 +6,7 @@ std::vector<AudioType> sample_conversion(const AudioBuffer &samples, int num_cha
 
     std::vector<AudioType> result;
 
-    int width = FPS * num_samples / length_in_seconds;
+    int width = static_cast<double>(num_samples) / FPS / length_in_seconds;
 
     for(int i = 0; i < num_samples; i += width) {
 

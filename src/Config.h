@@ -10,7 +10,7 @@ extern std::string OUTPUT_FILENAME;
 
 const int FPS = 30;
 
-const int EX = cv::VideoWriter::fourcc('M', 'P', '4', 'V');
+const int EX = cv::VideoWriter::fourcc('m', 'p', '4', 'v');
 
 const int WIDTH = 1920;
 
