@@ -31,3 +31,5 @@ Imagetrans
 # Others
 *.DS_Store
 .*.*.swp
+*.mp4
+*.log
