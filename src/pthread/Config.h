@@ -8,8 +8,8 @@ using AudioBuffer = std::vector<std::vector<AudioType>>;
 
 extern std::string OUTPUT_FILENAME;
 
-extern AudioType SAMPLE_MIN;
-extern AudioType SAMPLE_MAX;
+extern AudioType sample_min;
+extern AudioType sample_max;
 
 const long NUM_THREAD = 4;
 

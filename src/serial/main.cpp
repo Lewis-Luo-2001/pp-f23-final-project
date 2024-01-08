@@ -5,6 +5,7 @@
 #include "ImageGeneration.h"
 #include "ImageConcat.h"
 #include <iostream>
+#include <chrono>
 
 void usage() {
     std::cerr << "Usage: ./Imagetrans <inputfile> [outputfile]\n";
@@ -28,6 +29,8 @@ int main(int argc, char *argv[]) {
         OUTPUT_FILENAME = argv[2];
     }
 
+    auto start_time = std::chrono::high_resolution_clock::now();
+
     AudioFile<AudioType> audio_file;
     bool load_success = audio_file.load(argv[1]);
     if(!load_success) {
@@ -43,7 +46,12 @@ int main(int argc, char *argv[]) {
 
     cv::Mat images = image_generation(samples, 0, samples.size());
 
-    concat_images(images);  // Output included
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    // concat_images(images);  // Output included
+
+    std::cout << "Thread execution time: " << duration.count() << " microseconds" << std::endl;
 
     std::cout << "Done\n";
 

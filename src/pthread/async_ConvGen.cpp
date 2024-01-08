@@ -46,7 +46,7 @@ void *async_ConvGen(void *arg) {
     }
 
     /* image generation */
-    cv::Mat res = image_generation(sample_result, 0, sample_result.size());
+    cv::Mat res = image_generation(sample_result, 0, sample_result.size(), SAMPLE_MIN, SAMPLE_MAX);
 
     // cv::Mat localCopy = res.clone();
     data->images = new cv::Mat(res);

@@ -3,7 +3,9 @@
 #include "Config.h"
 #include "async_ConvGen.h"
 #include "ImageConcat.h"
+#include <chrono>
 #include <iostream>
+#include <time.h>
 #include <pthread.h>
 
 //pthread_mutex_t mutexsum;
@@ -42,10 +44,10 @@ int main(int argc, char *argv[]) {
     double length_in_seconds = audio_file.getLengthInSeconds();
 
     //pthread start
-    double start_time;
+    // double start_time = clock();
+    auto start_time = std::chrono::high_resolution_clock::now();
     pthread_t thread[NUM_THREAD];
     Arg *arg = (Arg*)malloc(sizeof(Arg) * NUM_THREAD);
-    //pthread_mutex_init(&mutexsum, NULL);
 
 
     //public param
@@ -71,8 +73,6 @@ int main(int argc, char *argv[]) {
         pthread_join(thread[i], &status);
     }
 
-    //pthread_mutex_destroy(&mutexsum);
-
     cv::Mat images;
     std::vector<cv::Mat> mat_vector;
     for (size_t i = 0; i < NUM_THREAD; i++) {
@@ -81,13 +81,9 @@ int main(int argc, char *argv[]) {
     }
     cv::hconcat(mat_vector, images);
 
-    double end_time;
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    //std::vector<AudioType> samples = sample_conversion(audio_file.samples, num_channels, num_samples, length_in_seconds);
-    //cv::Mat images = image_generation(samples, begin, end);
-
-    concat_images(images);  // Output included
-
-    std::cout << "Done\n";
+    std::cout << "Thread execution time: " << duration.count() << " microseconds" << std::endl;
 
 }

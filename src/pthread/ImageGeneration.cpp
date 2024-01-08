@@ -1,7 +1,7 @@
 #include "ImageGeneration.h"
 #include <algorithm>
 
-cv::Mat image_generation(std::vector<AudioType> samples, int begin, int end){
+cv::Mat image_generation(std::vector<AudioType> samples, int begin, int end, AudioType SAMPLE_MIN, AudioType SAMPLE_MAX){
     int bar_width = (WIDTH) / BAR_IN_A_FRAME;
     cv::Mat res = cv::Mat(HEIGHT, (bar_width) * (end-begin), CV_8UC1, cv::Scalar(255));
     int mx = std::max(abs(SAMPLE_MAX), abs(SAMPLE_MIN));
@@ -21,7 +21,7 @@ cv::Mat image_generation(std::vector<AudioType> samples, int begin, int end){
         for(int h = 0; h < high; h++) {
             int up = HEIGHT / 2 + adjust + h;
             int down = HEIGHT / 2 - adjust - h;
-            if(up > HEIGHT || down < 0) break;
+            //if(up > HEIGHT || down < 0) break;
 
             for(int w = i * bar_width; w < (i + 1) * bar_width; w++) {
                 res.at<uchar>(up, w) = 0;
