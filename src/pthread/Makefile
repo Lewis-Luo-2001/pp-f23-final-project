@@ -6,10 +6,13 @@ CXXFLAGS = -O3 -std=c++17 -lpthread -funroll-loops -I../../AudioFile -I/usr/loca
 
 all: Imagetrans
 
-Imagetrans: main.o SampleConversion.o ImageGeneration.o ImageConcat.o
+Imagetrans: pthread.o SampleConversion.o ImageGeneration.o ImageConcat.o async_ConvGen.o
 	$(CC) -o $@ $^ $(LIBS) $(CXXFLAGS)
 
-main.o: main.cpp Config.h
+pthread.o: pthread.cpp Config.h
+	$(CC) -c -o $@ $< $(LIBS) $(CXXFLAGS)
+
+async_ConvGen.o: async_ConvGen.cpp Config.h SampleConversion.h ImageGeneration.h
 	$(CC) -c -o $@ $< $(LIBS) $(CXXFLAGS)
 
 SampleConversion.o: SampleConversion.cpp SampleConversion.h Config.h

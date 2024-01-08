@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
     cv::Mat images = image_generation(samples, 0, samples.size());
 
-    concat_images(images);  // Output included
+    // concat_images(images);  // Output included
 
     std::cout << "Done\n";
 

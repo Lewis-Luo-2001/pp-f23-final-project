@@ -3,11 +3,11 @@
 #include <numeric>
 #include "async_ConvGen.h"
 
-AudioType SAMPLE_MIN;
-AudioType SAMPLE_MAX;
-
 void *async_ConvGen(void *arg) {
     /* sample conversion */
+    AudioType SAMPLE_MIN;
+    AudioType SAMPLE_MAX;
+
     Arg* data = (Arg*)arg;
     int id = data->id;
     const AudioBuffer &samples = data->samples;
@@ -17,7 +17,7 @@ void *async_ConvGen(void *arg) {
 
     std::vector<AudioType> sample_result;
 
-    //int width = static_cast<double>(num_samples) / FPS / length_in_seconds;
+    int width = static_cast<double>(num_samples) / FPS / length_in_seconds;
 
     SAMPLE_MIN = std::numeric_limits<AudioType>::max();
     SAMPLE_MAX = std::numeric_limits<AudioType>::min();
@@ -47,9 +47,11 @@ void *async_ConvGen(void *arg) {
 
     /* image generation */
     int begin = id*(sample_result.size()/NUM_THREAD), end = (id+1)*(sample_result.size()/NUM_THREAD);
-    cv::Mat res = image_generation(samples, begin, end);
+    cv::Mat res = image_generation(sample_result, begin, end);
 
     *(data->images) = res.clone();
 
     pthread_exit(NULL);
+
+    return(NULL);
 }

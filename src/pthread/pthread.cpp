@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     //pthread start
     double start_time;
     pthread_t thread[NUM_THREAD];
-    struct Arg arg[NUM_THREAD];
+    Arg *arg = (Arg*)malloc(sizeof(Arg) * NUM_THREAD);
     //pthread_mutex_init(&mutexsum, NULL);
 
     pthread_attr_t attr;
@@ -62,9 +62,10 @@ int main(int argc, char *argv[]) {
         arg[i].num_samples = num_samples;
         arg[i].width = width;
         arg[i].images = images_list[i];
+        arg[i].length_in_seconds = length_in_seconds;
 
         if(pthread_create(&thread[i], &attr, async_ConvGen, &arg[i])!=0){
-            cerr<<"create thread error"<<endl;
+            std::cerr<<"create thread error"<<std::endl;
             return 1;
         }
     }
@@ -89,7 +90,7 @@ int main(int argc, char *argv[]) {
     //std::vector<AudioType> samples = sample_conversion(audio_file.samples, num_channels, num_samples, length_in_seconds);
     //cv::Mat images = image_generation(samples, begin, end);
 
-    concat_images(images);  // Output included
+    // concat_images(images);  // Output included
 
     std::cout << "Done\n";
 

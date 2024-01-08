@@ -1,18 +1,19 @@
 #pragma once
 
+#include <optional>
 #include "Config.h"
-#include "Sample"
 #include "SampleConversion.h"
 #include "ImageGeneration.h"
 
-struct Arg{
+typedef struct Arg{
     int id;
-    const AudioBuffer &samples;
+    AudioBuffer &samples;
     int num_channels;
     int num_samples;
     double width;
+    double length_in_seconds;
     cv::Mat *images;
-};
+} Arg;
 
 /**
  * Parallelized compress samples and convert to suitable data structure, then generate the images
