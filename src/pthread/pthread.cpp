@@ -50,7 +50,6 @@ int main(int argc, char *argv[]) {
 
     //public param
     int width = static_cast<double>(num_samples) / FPS / length_in_seconds;
-    std::vector<cv::Mat*> images_list(NUM_THREAD);
 
     for(int i=0; i<NUM_THREAD; i++){
         arg[i].id = i;
@@ -58,7 +57,7 @@ int main(int argc, char *argv[]) {
         arg[i].num_channels = num_channels;
         arg[i].num_samples = num_samples;
         arg[i].width = width;
-        arg[i].images = images_list[i];
+        arg[i].images = nullptr;
         arg[i].length_in_seconds = length_in_seconds;
 
         if(pthread_create(&thread[i], NULL, async_ConvGen, &arg[i])!=0){
@@ -77,17 +76,17 @@ int main(int argc, char *argv[]) {
     cv::Mat images;
     std::vector<cv::Mat> mat_vector;
     for (size_t i = 0; i < NUM_THREAD; i++) {
-        if(images_list[i] == nullptr) std::cout<<"nullptr\n";
-        // mat_vector.push_back(*images_list[i]);
+        if(arg[i].images == nullptr) std::cout<<"nullptr\n";
+        else mat_vector.push_back(*arg[i].images);
     }
-    // cv::hconcat(mat_vector, images);
+    cv::hconcat(mat_vector, images);
 
     double end_time;
 
     //std::vector<AudioType> samples = sample_conversion(audio_file.samples, num_channels, num_samples, length_in_seconds);
     //cv::Mat images = image_generation(samples, begin, end);
 
-    // concat_images(images);  // Output included
+    concat_images(images);  // Output included
 
     std::cout << "Done\n";
 

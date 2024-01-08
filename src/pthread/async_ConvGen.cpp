@@ -49,7 +49,7 @@ void *async_ConvGen(void *arg) {
     cv::Mat res = image_generation(sample_result, 0, sample_result.size());
 
     // cv::Mat localCopy = res.clone();
-    // *data->images = localCopy;
+    data->images = new cv::Mat(res);
 
     pthread_exit(NULL);
 
