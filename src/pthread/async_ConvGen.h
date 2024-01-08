@@ -7,7 +7,7 @@
 
 typedef struct Arg{
     int id;
-    AudioBuffer &samples;
+    AudioBuffer samples;
     int num_channels;
     int num_samples;
     double width;

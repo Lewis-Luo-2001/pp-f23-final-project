@@ -47,9 +47,6 @@ int main(int argc, char *argv[]) {
     Arg *arg = (Arg*)malloc(sizeof(Arg) * NUM_THREAD);
     //pthread_mutex_init(&mutexsum, NULL);
 
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
 
     //public param
     int width = static_cast<double>(num_samples) / FPS / length_in_seconds;
@@ -64,13 +61,12 @@ int main(int argc, char *argv[]) {
         arg[i].images = images_list[i];
         arg[i].length_in_seconds = length_in_seconds;
 
-        if(pthread_create(&thread[i], &attr, async_ConvGen, &arg[i])!=0){
+        if(pthread_create(&thread[i], NULL, async_ConvGen, &arg[i])!=0){
             std::cerr<<"create thread error"<<std::endl;
             return 1;
         }
     }
 
-    pthread_attr_destroy(&attr);
     void* status;
     for(int i=0; i<NUM_THREAD; i++){
         pthread_join(thread[i], &status);
@@ -81,9 +77,10 @@ int main(int argc, char *argv[]) {
     cv::Mat images;
     std::vector<cv::Mat> mat_vector;
     for (size_t i = 0; i < NUM_THREAD; i++) {
-        mat_vector.push_back(*images_list[i]);
+        if(images_list[i] == nullptr) std::cout<<"nullptr\n";
+        // mat_vector.push_back(*images_list[i]);
     }
-    cv::hconcat(mat_vector, images);
+    // cv::hconcat(mat_vector, images);
 
     double end_time;
 

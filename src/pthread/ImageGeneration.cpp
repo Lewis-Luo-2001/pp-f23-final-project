@@ -21,6 +21,8 @@ cv::Mat image_generation(std::vector<AudioType> samples, int begin, int end){
         for(int h = 0; h < high; h++) {
             int up = HEIGHT / 2 + adjust + h;
             int down = HEIGHT / 2 - adjust - h;
+            if(up > HEIGHT || down < 0) break;
+
             for(int w = i * bar_width; w < (i + 1) * bar_width; w++) {
                 res.at<uchar>(up, w) = 0;
                 res.at<uchar>(down, w) = 0;

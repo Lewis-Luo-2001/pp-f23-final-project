@@ -46,10 +46,10 @@ void *async_ConvGen(void *arg) {
     }
 
     /* image generation */
-    int begin = id*(sample_result.size()/NUM_THREAD), end = (id+1)*(sample_result.size()/NUM_THREAD);
-    cv::Mat res = image_generation(sample_result, begin, end);
+    cv::Mat res = image_generation(sample_result, 0, sample_result.size());
 
-    *(data->images) = res.clone();
+    // cv::Mat localCopy = res.clone();
+    // *data->images = localCopy;
 
     pthread_exit(NULL);
 
