@@ -6,6 +6,8 @@
 #include <iostream>
 #include <time.h>
 #include <pthread.h>
+#include <string>
+#include <cstdio>
 
 //pthread_mutex_t mutexsum;
 
@@ -77,4 +79,24 @@ int main(int argc, char *argv[]) {
         else mat_vector.push_back(*arg[i].images);
     }
     cv::hconcat(mat_vector, images);
+
+    std::string filename_template = OUTPUT_FILENAME.substr(0, OUTPUT_FILENAME.size() - 4);
+    std::fstream file_list("file_list.txt", std::ios::out);
+
+    for(int i = 0; i < NUM_THREAD; i++) {
+        file_list << "file \'" << filename_template + "_tmp" + std::to_string(i) + ".mp4\'\n";
+    }
+
+    file_list.close();
+
+    std::cerr << (std::string("ffmpeg -f concat -safe 0 -i file_list.txt -c copy ") + OUTPUT_FILENAME).c_str() << "\n";
+    system((std::string("ffmpeg -f concat -safe 0 -i file_list.txt -c copy ") + OUTPUT_FILENAME).c_str());
+
+    for(int i = 0; i < NUM_THREAD; i++) {
+        std::remove((filename_template + "_tmp" + std::to_string(i) + ".mp4").c_str());
+    }
+
+    std::remove("file_list.txt");
+
+    std::cout << "Video created successfully: " << OUTPUT_FILENAME << std::endl;
 }

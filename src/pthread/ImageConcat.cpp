@@ -23,7 +23,8 @@ void concat_images(cv::Mat &mat, int id) {
     int step = WIDTH / BAR_IN_A_FRAME;
     int progress = 0;
 
-    cv::VideoWriter video_writer("output" + std::to_string(id) + ".mp4", EX, FPS, FRAME_SIZE, false);
+    std::string filename_template = OUTPUT_FILENAME.substr(0, OUTPUT_FILENAME.size() - 4);
+    cv::VideoWriter video_writer(filename_template + "_tmp" + std::to_string(id) + ".mp4", EX, FPS, FRAME_SIZE, false);
 
     if(!video_writer.isOpened()) {
         std::cerr << "Error: Could not open the video file for writing." << std::endl;
@@ -42,9 +43,5 @@ void concat_images(cv::Mat &mat, int id) {
         }
     }
 
-    std::cout << "Processing: 100%\n";
-
     video_writer.release();
-
-    std::cout << "Video created successfully: " << OUTPUT_FILENAME << std::endl;
 }
