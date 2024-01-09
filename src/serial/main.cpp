@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
         OUTPUT_FILENAME = argv[2];
     }
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    // auto start_time = std::chrono::high_resolution_clock::now();
 
     AudioFile<AudioType> audio_file;
     bool load_success = audio_file.load(argv[1]);
@@ -46,12 +46,12 @@ int main(int argc, char *argv[]) {
 
     cv::Mat images = image_generation(samples, 0, samples.size());
 
-    auto end_time = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    // auto end_time = std::chrono::high_resolution_clock::now();
+    // auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    // concat_images(images);  // Output included
+    concat_images(images);  // Output included
 
-    std::cout << "Thread execution time: " << duration.count() << " microseconds" << std::endl;
+    // std::cout << "Thread execution time: " << duration.count() << " microseconds" << std::endl;
 
     std::cout << "Done\n";
 
