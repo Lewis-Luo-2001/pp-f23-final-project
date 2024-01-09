@@ -72,7 +72,6 @@ void concat_images(cv::Mat &mat) {
 
     file_list.close();
 
-    std::cerr << (std::string("ffmpeg -f concat -safe 0 -i file_list.txt -c copy ") + OUTPUT_FILENAME).c_str() << "\n";
     system((std::string("ffmpeg -f concat -safe 0 -i file_list.txt -c copy ") + OUTPUT_FILENAME).c_str());
 
     for(int i = 0; i < thread_cnt; i++) {
