@@ -29,6 +29,7 @@ void concat_images(cv::Mat &mat) {
     int thread_cnt;
     bool error = 0;
     std::string filename_template = OUTPUT_FILENAME.substr(0, OUTPUT_FILENAME.size() - 4);
+    std::string filename_thread[MAX_THREADS];
 
     #pragma omp parallel num_threads(MAX_THREADS)
     {
@@ -40,7 +41,8 @@ void concat_images(cv::Mat &mat) {
 
         #pragma omp barrier
 
-        cv::VideoWriter video_writer(filename_template + "_tmp" + std::to_string(thread_num) + ".mp4", EX, FPS, FRAME_SIZE, false);
+        filename_thread[thread_num] = filename_template + "_tmp" + std::to_string(thread_num) + ".mp4";
+        cv::VideoWriter video_writer(filename_thread[thread_num], EX, FPS, FRAME_SIZE, false);
 
         int start = (mat.cols - WIDTH + 1) * thread_num / thread_cnt;
         int end = (mat.cols - WIDTH + 1) * (thread_num + 1) / thread_cnt;
@@ -67,7 +69,7 @@ void concat_images(cv::Mat &mat) {
     std::fstream file_list("file_list.txt", std::ios::out);
 
     for(int i = 0; i < thread_cnt; i++) {
-        file_list << "file \'" << filename_template + "_tmp" + std::to_string(i) + ".mp4\'\n";
+        file_list << "file \'" << filename_thread[i] << "\'\n";
     }
 
     file_list.close();
@@ -75,7 +77,7 @@ void concat_images(cv::Mat &mat) {
     system((std::string("ffmpeg -f concat -safe 0 -i file_list.txt -c copy ") + OUTPUT_FILENAME).c_str());
 
     for(int i = 0; i < thread_cnt; i++) {
-        std::remove((filename_template + "_tmp" + std::to_string(i) + ".mp4").c_str());
+        std::remove(filename_thread[i].c_str());
     }
 
     std::remove("file_list.txt");
