@@ -19,7 +19,7 @@ std::vector<AudioType> sample_conversion(const AudioBuffer &samples, int num_cha
     SAMPLE_MIN = std::numeric_limits<AudioType>::max();
     SAMPLE_MAX = std::numeric_limits<AudioType>::min();
 
-    #pragma omp parallel for num_threads(8)
+    #pragma omp parallel for num_threads(MAX_THREADS)
     for(int i = 0; i < result_size; i++) {
 
         AudioType avg = 0;

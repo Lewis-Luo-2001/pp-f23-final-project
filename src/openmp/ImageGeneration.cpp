@@ -7,7 +7,7 @@ void image_generation(cv::Mat &res, const std::vector<AudioType> &samples, int b
     int adjust = STANDARD_HEIGHT / 2;
 
     for(int i = 0; i < adjust; i++) {
-        #pragma omp parallel for num_threads(8)
+        #pragma omp parallel for num_threads(MAX_THREADS)
         for(int w = begin; w < end; w++) {
             res.at<uchar>(HEIGHT / 2 + i, w) = 0;
             res.at<uchar>(HEIGHT / 2 - i, w) = 0;
@@ -17,7 +17,7 @@ void image_generation(cv::Mat &res, const std::vector<AudioType> &samples, int b
     double percentage_unit = (HEIGHT - STANDARD_HEIGHT) / 2. / mx;
     int up_adjust = HEIGHT / 2 + adjust;
     int down_adjust = HEIGHT / 2 - adjust;
-    #pragma omp parallel for num_threads(8)
+    #pragma omp parallel for num_threads(MAX_THREADS)
     for(int i = begin; i < end; i++) {
         int high = round(abs(samples[i]) * percentage_unit);
         //high = round((float) high / (SAMPLE_MAX - SAMPLE_MIN) * HEIGHT);

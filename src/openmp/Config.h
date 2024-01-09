@@ -13,6 +13,8 @@ extern AudioType SAMPLE_MAX;
 
 const int FPS = 60;
 
+const int MAX_THREADS = 8;
+
 const int EX = cv::VideoWriter::fourcc('m', 'p', '4', 'v');
 
 const int WIDTH = 1920;

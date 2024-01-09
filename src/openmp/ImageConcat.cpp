@@ -30,7 +30,7 @@ void concat_images(cv::Mat &mat) {
     bool error = 0;
     std::string filename_template = OUTPUT_FILENAME.substr(0, OUTPUT_FILENAME.size() - 4);
 
-    #pragma omp parallel num_threads(8)
+    #pragma omp parallel num_threads(MAX_THREADS)
     {
 
         int thread_num = omp_get_thread_num();
