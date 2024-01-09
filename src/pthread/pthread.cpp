@@ -3,7 +3,6 @@
 #include "Config.h"
 #include "async_ConvGen.h"
 #include "ImageConcat.h"
-#include <chrono>
 #include <iostream>
 #include <time.h>
 #include <pthread.h>
@@ -44,8 +43,6 @@ int main(int argc, char *argv[]) {
     double length_in_seconds = audio_file.getLengthInSeconds();
 
     //pthread start
-    // double start_time = clock();
-    auto start_time = std::chrono::high_resolution_clock::now();
     pthread_t thread[NUM_THREAD];
     Arg *arg = (Arg*)malloc(sizeof(Arg) * NUM_THREAD);
 
@@ -80,10 +77,4 @@ int main(int argc, char *argv[]) {
         else mat_vector.push_back(*arg[i].images);
     }
     cv::hconcat(mat_vector, images);
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
-    std::cout << "Thread execution time: " << duration.count() << " microseconds" << std::endl;
-
 }

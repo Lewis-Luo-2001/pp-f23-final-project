@@ -27,5 +27,6 @@ void randomize_matrix(int row_num, int col_num, cv::Mat* mat_ptr);
  * Concat the images into a video
  *
  * @param mat matrix
+ * @param id thread id
  */
-void concat_images(cv::Mat &mat);
+void concat_images(cv::Mat &mat, int id);

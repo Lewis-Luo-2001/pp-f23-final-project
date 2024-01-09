@@ -1,5 +1,6 @@
 #include "ImageConcat.h"
 #include "Config.h"
+#include <string>
 
 /*cv::Mat *generate_matrix(int row_num, int col_num) {
     cv::Mat *mat = new cv::Mat(row_num, col_num, CV_8UC1, cv::Scalar(255));
@@ -18,11 +19,11 @@ void randomize_matrix(int row_num, int col_num, cv::Mat* mat_ptr) {
     }
 }*/
 
-void concat_images(cv::Mat &mat) {
+void concat_images(cv::Mat &mat, int id) {
     int step = WIDTH / BAR_IN_A_FRAME;
     int progress = 0;
 
-    cv::VideoWriter video_writer(OUTPUT_FILENAME, EX, FPS, FRAME_SIZE, false);
+    cv::VideoWriter video_writer("output" + std::to_string(id) + ".mp4", EX, FPS, FRAME_SIZE, false);
 
     if(!video_writer.isOpened()) {
         std::cerr << "Error: Could not open the video file for writing." << std::endl;

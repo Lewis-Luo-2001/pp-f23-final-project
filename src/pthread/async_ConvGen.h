@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "SampleConversion.h"
 #include "ImageGeneration.h"
+#include "ImageConcat.h"
 
 typedef struct Arg{
     int id;
