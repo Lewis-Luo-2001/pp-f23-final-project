@@ -34,13 +34,6 @@ void concat_images(cv::Mat &mat, int id) {
     for(int col = 0; col <= mat.cols - WIDTH; col += step) {
         cv::Mat frame = mat(cv::Rect(col, 0, WIDTH, HEIGHT));
         video_writer.write(frame);
-
-        if(col * 100 / (mat.cols - WIDTH) > progress) {
-            progress = col * 100 / (mat.cols - WIDTH);
-            if(progress % 5 == 0) {
-                std::cout << "Processing: " << progress << "%\n";
-            }
-        }
     }
 
     video_writer.release();
