@@ -1,10 +1,14 @@
 CC = g++
 LIBS = `pkg-config --cflags --libs opencv4`
 CXXFLAGS = -O3 -std=c++17 -lpthread -funroll-loops -I../../AudioFile -I/usr/local/include/opencv4 -lopencv_core -lopencv_videoio -lopencv_highgui
+DBGFLAGS = -g -fsanitize=address -fsanitize=undefined
 
-.PHONY: all clean
+.PHONY: all debug clean
 
 all: Imagetrans
+
+debug: CXXFLAGS += $(DBGFLAGS)
+debug: all
 
 Imagetrans: pthread.o SampleConversion.o ImageGeneration.o ImageConcat.o async_ConvGen.o
 	$(CC) -o $@ $^ $(LIBS) $(CXXFLAGS)
