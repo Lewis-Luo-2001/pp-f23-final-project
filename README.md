@@ -24,3 +24,4 @@ make
 ```
 ./Imagetrans [Input file name] [Output file name] 
 ```
+  - If you want to modify the thread num or other film setting, you can edit `Config.h`
