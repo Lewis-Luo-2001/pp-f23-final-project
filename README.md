@@ -12,3 +12,15 @@ Supported Formats:
 
 - WAV
 - AIFF
+
+## How to use
+- build the project
+```
+cd src
+cd [the version you want to execute]
+make
+```
+- execute the project
+```
+./Imagetrans [Input file name] [Output file name] 
+```
